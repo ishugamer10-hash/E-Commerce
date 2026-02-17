@@ -1,6 +1,7 @@
 import express from "express";
 import {
   verifyStripe,
+  verifyRazorpay,
   placeOrder,
   placeOrderStripe,
   placeOrderRazorpay,
