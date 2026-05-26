@@ -1,26 +1,30 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { assets } from '../src/assets/assets'
+import { NavLink } from "react-router-dom";
+import { assets } from "../src/assets/assets";
+
+const navItems = [
+  { to: "/add", label: "Add Product", icon: assets.add_icon },
+  { to: "/list", label: "Product List", icon: assets.order_icon },
+  { to: "/orders", label: "Orders", icon: assets.parcel_icon },
+];
 
 const Sidebar = () => {
   return (
-    <div className='w-[18%] min-h-screen border-r-2'>
-      <div className='flex flex-col gap-4 pt-6 pl-[20%] text-[15px]'>
-        <NavLink className='flex item-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l' to="/add">
-        <img className='w-5 h-5' src={assets.add_icon} alt="" />
-        <p className='hidden md:block'>Add Items</p></NavLink>
+    <aside className="w-full max-w-xs rounded-3xl bg-white p-4 shadow-sm ring-1 ring-slate-200 lg:sticky lg:top-6 lg:h-fit">
+      <p className="px-3 pb-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">Navigation</p>
+      <nav className="space-y-2">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
+          >
+            <img className="h-5 w-5 object-contain" src={item.icon} alt="" />
+            <span>{item.label}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
+  );
+};
 
-          <NavLink className='flex item-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l' to="/list">
-        <img className='w-5 h-5' src={assets.order_icon} alt="" />
-        <p className='hidden md:block'>List Items</p></NavLink>
-
-          <NavLink className='flex item-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l' to="/orders">
-        <img className='w-5 h-5' src={assets.order_icon} alt="" />
-        <p className='hidden md:block'>Add Items</p></NavLink>
-
-      </div>
-    </div>
-  )
-}
-
-export default Sidebar
+export default Sidebar;
