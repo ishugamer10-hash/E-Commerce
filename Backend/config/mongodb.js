@@ -4,7 +4,14 @@ const connectDB = async () => {
   mongoose.connection.on("connected", () => {
     console.log("DB CONNECTED");
   });
-  await mongoose.connect(`${process.env.MONGODB_URI}/e-commerce`);
+
+  if (!process.env.MONGODB_URI) {
+    throw new Error("MONGODB_URI is not configured");
+  }
+
+  await mongoose.connect(process.env.MONGODB_URI, {
+    dbName: process.env.MONGODB_DB_NAME || "e-commerce",
+  });
 };
 
 export default connectDB;

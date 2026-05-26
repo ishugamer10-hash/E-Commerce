@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import { connect } from "mongoose";
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
 import userRouter from "./routes/userRouter.js";
@@ -11,8 +10,6 @@ import orderRouter from "./routes/orderRoute.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
-connectDB();
-connectCloudinary();
 
 app.use(express.json());
 app.use(cors());
@@ -26,4 +23,15 @@ app.get("/", (req, res) => {
   res.send("API Working");
 });
 
-app.listen(port, () => console.log("server started on PORT :" + port));
+const startServer = async () => {
+  try {
+    await connectDB();
+    await connectCloudinary();
+    app.listen(port, () => console.log("server started on PORT :" + port));
+  } catch (error) {
+    console.error("Server startup failed:\n" + error.message);
+    process.exit(1);
+  }
+};
+
+startServer();

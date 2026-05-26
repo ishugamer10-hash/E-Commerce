@@ -42,7 +42,7 @@ const registerUser = async (req, res) => {
     if (password.length < 8) {
       return res.json({
         success: false,
-        message: "Plz ene=ter a strong password ",
+        message: "Plz enter a strong password ",
       });
     }
 

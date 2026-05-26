@@ -21,9 +21,9 @@ const addProduct = async (req, res) => {
       (item) => item !== undefined
     );
 
-    let imagesUrl = await Promise.all(
+    const imagesUrl = await Promise.all(
       images.map(async (item) => {
-        let result = await cloudinary.uploader.upload(item.path, {
+        const result = await cloudinary.uploader.upload(item.path, {
           resource_type: "image",
         });
         return result.secure_url;
@@ -45,7 +45,7 @@ const addProduct = async (req, res) => {
 
     const product = new productModel(productData);
     await product.save();
-    res.json({ success: "true", message: "product added" });
+    res.json({ success: true, message: "product added", product });
 
     console.log(
       name,
@@ -66,7 +66,7 @@ const addProduct = async (req, res) => {
 const removeProduct = async (req, res) => {
   try {
     await productModel.findByIdAndDelete(req.body.id);
-    res.json({ success: "true", message: "Product removed" });
+    res.json({ success: true, message: "Product removed" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -75,8 +75,8 @@ const removeProduct = async (req, res) => {
 
 const listProduct = async (req, res) => {
   try {
-    const product = await productModel.findOne({});
-    res.json({ success: "true", product });
+    const products = await productModel.find({});
+    res.json({ success: true, products });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -84,9 +84,12 @@ const listProduct = async (req, res) => {
 };
 const singleProduct = async (req, res) => {
   try {
-    const { productId } = req.body;
+    const productId = req.params.productId || req.body.productId;
     const product = await productModel.findById(productId);
-    res.json({ success: "true", product });
+    if (!product) {
+      return res.json({ success: false, message: "Product not found" });
+    }
+    res.json({ success: true, product });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
