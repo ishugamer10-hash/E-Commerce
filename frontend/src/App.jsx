@@ -13,13 +13,17 @@ import Orders from './pages/Orders'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar'
- import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Verify from './pages/Verify'
+import { ShopContext } from './context/ShopContext'
+import { useContext } from 'react'
 
 const App = () => {
+  const { theme } = useContext(ShopContext)
+
   return (
-    <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+    <div className={`min-h-screen px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] transition-colors duration-300 ${theme === "dark" ? "theme-surface-dark text-slate-100" : "theme-surface-light text-slate-900"}`}>
       <ToastContainer/>
       <Navbar />
       <SearchBar/>

@@ -46,17 +46,16 @@ const LatestCollection = () => {
   }, [products]);
 
   return (
-    <div className="my-10">
+    <section className="section-shell my-14">
 
       <div className="text-center py-8 text-3xl">
         <Title text1="LATEST" text2="COLLECTIONS" />
-        <p className="w-3/4 mx-auto text-xs sm:text-sm md:text-base text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Velit, quis? Perspiciatis ducimus totam similique natus.
+        <p className="ui-subtext w-3/4 mx-auto text-xs sm:text-sm md:text-base leading-7">
+          Fresh arrivals with clean cuts, softer palettes, and elevated everyday styling that stays wearable.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+      <div className="product-grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {latestProducts.map((item) => (
           <ProductItem
             key={item._id}
@@ -68,7 +67,7 @@ const LatestCollection = () => {
         ))}
       </div>
 
-    </div>
+    </section>
   );
 };
 

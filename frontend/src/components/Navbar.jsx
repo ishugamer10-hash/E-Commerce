@@ -5,7 +5,14 @@ import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const {setShowSearch , getCartCount,navigate,token,setToken,setCartItems}=useContext(ShopContext)
+  const {setShowSearch , getCartCount,navigate,token,setToken,setCartItems,theme,toggleTheme}=useContext(ShopContext)
+
+  const handleActionKeyDown = (event, action) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault()
+      action()
+    }
+  }
 
   const logout=()=>{
     localStorage.removeItem('token')
@@ -14,8 +21,13 @@ const Navbar = () => {
     navigate('/login')
   }
 
+  const openSearch = () => {
+    setShowSearch(true)
+    navigate('/collection')
+  }
+
   return (
-    <div className="flex items-center justify-between py-5 font-medium relative">
+    <div className="flex items-center justify-between py-5 font-medium relative z-40">
 
       {/* LOGO */}
      <Link to='/' ><img src={assets.logo} className="w-36" alt="logo" /></Link>
@@ -40,20 +52,46 @@ const Navbar = () => {
 
       {/* RIGHT ICONS */}
       <div className="flex items-center gap-6">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          className={`hidden sm:flex h-7 w-14 items-center rounded-full border transition-colors duration-300 ${
+            theme === "dark" ? "bg-slate-800 border-slate-600 justify-end" : "bg-amber-100 border-amber-300 justify-start"
+          } p-1`}
+        >
+          <span
+            className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] transition-transform duration-300 ${
+              theme === "dark" ? "bg-slate-100 text-slate-900" : "bg-white text-amber-500"
+            }`}
+          >
+            {theme === "dark" ? "D" : "L"}
+          </span>
+        </button>
 
         {/* SEARCH */}
-        <img onClick={()=>setShowSearch(true)} src={assets.search_icon} className="w-5 cursor-pointer" alt="search" />
+        <button
+          type="button"
+          onClick={openSearch}
+          onKeyDown={(event) => handleActionKeyDown(event, openSearch)}
+          className="flex items-center"
+          aria-label="Open search"
+        >
+          <img src={assets.search_icon} className="w-5 cursor-pointer" alt="search" />
+        </button>
 
         {/* PROFILE DROPDOWN */}
-        <div className="group relative">
-         <Link to = '/login '> <img onClick={()=>token?null:navigate('/login')} src={assets.profile_icon} className="w-5 cursor-pointer" alt="profile" /></Link>
+        <div className="group relative z-50">
+         <Link to='/login' aria-label="Open profile or login">
+          <img onClick={() => (token ? null : navigate('/login'))} src={assets.profile_icon} className="w-5 cursor-pointer" alt="profile" />
+         </Link>
 
           {token&& 
-          <div className="group-hover:block hidden absolute right-0 pt-4">
-            <div className="flex flex-col gap-3 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded shadow">
-              <p className="cursor-pointer hover:text-black">My Profile</p>
-              <p onClick={()=>navigate('/orders')} className="cursor-pointer hover:text-black">Orders</p>
-              <p onClick={logout} className="cursor-pointer hover:text-black">Logout</p>
+          <div className="group-hover:block hidden absolute right-0 pt-4 z-[60]">
+            <div className="flex flex-col gap-3 w-40 py-3 px-5 bg-slate-100 text-gray-500 rounded-2xl shadow-2xl border border-slate-200">
+              <button type="button" className="text-left cursor-pointer hover:text-black">My Profile</button>
+              <button type="button" onClick={()=>navigate('/orders')} className="text-left cursor-pointer hover:text-black">Orders</button>
+              <button type="button" onClick={logout} className="text-left cursor-pointer hover:text-black">Logout</button>
             </div>
           </div>}
         </div>
@@ -83,12 +121,33 @@ const Navbar = () => {
       >
 
         {/* BACK BUTTON */}
-        <div
+        <button
+          type="button"
           onClick={() => setVisible(false)}
           className="flex items-center gap-4 p-4 cursor-pointer"
         >
           <img className="h-4 rotate-180" src={assets.dropdown_icon} alt="back" />
           <p>Back</p>
+        </button>
+
+        <div className="px-6 py-3 border-b flex items-center justify-between">
+          <p className="text-sm">Theme</p>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            className={`flex h-7 w-14 items-center rounded-full border transition-colors duration-300 ${
+              theme === "dark" ? "bg-slate-800 border-slate-600 justify-end" : "bg-amber-100 border-amber-300 justify-start"
+            } p-1`}
+          >
+            <span
+              className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] transition-transform duration-300 ${
+                theme === "dark" ? "bg-slate-100 text-slate-900" : "bg-white text-amber-500"
+              }`}
+            >
+              {theme === "dark" ? "D" : "L"}
+            </span>
+          </button>
         </div>
 
         {/* MOBILE LINKS */}

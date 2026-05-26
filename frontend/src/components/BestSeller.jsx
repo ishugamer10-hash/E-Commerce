@@ -1,35 +1,37 @@
-import React, { useState,useEffect,useContext} from 'react'
-import { ShopContext} from '../context/ShopContext'
-import Title from './Title'
+import React, { useContext, useMemo } from "react";
+import { ShopContext } from "../context/ShopContext";
+import Title from "./Title";
+import ProductItem from "./ProductItem";
 
 const BestSeller = () => {
-    const{products}=useContext(ShopContext)
-    const[BestSeller,setBestSeller]=useState([])
-    useEffect(()=>{
-        const bestProduct=products.filter((item)=>(item.BestSeller))
-        setBestSeller(bestProduct.slice(0,5))
-    },[products])
+  const { products } = useContext(ShopContext);
+
+  const bestSeller = useMemo(
+    () => products.filter((item) => item.bestseller).slice(0, 5),
+    [products]
+  );
+
   return (
-    
-    <div className='my-10'>
-        <div className='text-center text-3xl py-8'>
-            <Title text1={'BEST'} text2={'SELLERS'}/>
-            <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 '>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores consequuntur consectetur eligendi blanditiis provident quia repellendus et. Dignissimos, fuga saepe.</p>
-
-        </div>
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6 '>
-        {
-            bestSeller.map((item,index)=>(
-                 <productItem key={index} id={item._id} name={item.name}  image={item.image} price={item.price}
-
-                 ></productItem>
-            ))
-        }
-
+    <section className="section-shell my-16">
+      <div className="text-center text-3xl py-8">
+        <Title text1={"BEST"} text2={"SELLERS"} />
+        <p className="ui-subtext w-3/4 m-auto text-xs sm:text-sm md:text-base leading-7">
+          The pieces customers come back for most: easy layering, smart tailoring, and high-repeat favorites.
+        </p>
       </div>
-    </div>
-  )
-}
+      <div className="product-grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        {bestSeller.map((item) => (
+          <ProductItem
+            key={item._id}
+            id={item._id}
+            name={item.name}
+            image={item.image}
+            price={item.price}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
 
-export default BestSeller
+export default BestSeller;

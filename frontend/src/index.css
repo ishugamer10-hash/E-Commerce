@@ -2,6 +2,342 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    color-scheme: light;
+    --ui-bg: #fffdf8;
+    --ui-panel: rgba(255, 255, 255, 0.72);
+    --ui-panel-strong: #ffffff;
+    --ui-text: #111827;
+    --ui-muted: #5b6474;
+    --ui-line: rgba(15, 23, 42, 0.1);
+    --ui-accent: #c08457;
+    --ui-accent-soft: rgba(192, 132, 87, 0.14);
+    --ui-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+    --ui-shadow-hover: 0 24px 55px rgba(15, 23, 42, 0.14);
+    --ui-hero-glow: rgba(251, 191, 36, 0.22);
+}
+
+html.dark {
+    color-scheme: dark;
+    --ui-bg: #020617;
+    --ui-panel: rgba(15, 23, 42, 0.72);
+    --ui-panel-strong: rgba(15, 23, 42, 0.92);
+    --ui-text: #e5eefc;
+    --ui-muted: #a8b4c8;
+    --ui-line: rgba(148, 163, 184, 0.24);
+    --ui-accent: #7dd3fc;
+    --ui-accent-soft: rgba(125, 211, 252, 0.16);
+    --ui-shadow: 0 22px 55px rgba(2, 6, 23, 0.42);
+    --ui-shadow-hover: 0 28px 60px rgba(2, 6, 23, 0.56);
+    --ui-hero-glow: rgba(56, 189, 248, 0.18);
+}
+
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-surface-light {
+    background: linear-gradient(180deg, #fffdf7 0%, #ffffff 38%, #fffaf2 100%);
+}
+
+.theme-surface-dark {
+    background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.14), transparent 32%),
+        linear-gradient(180deg, #020617 0%, #0f172a 42%, #111827 100%);
+}
+
+.theme-dark {
+    background: #020617;
+    color: #e5eefc;
+}
+
+.theme-dark a.active hr{
+    background-color: #e2e8f0;
+}
+
+.theme-dark .bg-white,
+.theme-dark .bg-gray-50,
+.theme-dark .bg-slate-50,
+.theme-dark .bg-slate-100 {
+    background-color: rgba(15, 23, 42, 0.88) !important;
+}
+
+.theme-dark .bg-black {
+    background-color: #e2e8f0 !important;
+}
+
+.theme-dark .text-white {
+    color: #0f172a !important;
+}
+
+.theme-dark .text-black,
+.theme-dark .hover\:text-black:hover {
+    color: #f8fafc !important;
+}
+
+.theme-dark .text-gray-800,
+.theme-dark .text-gray-900,
+.theme-dark .text-gray-700,
+.theme-dark .text-gray-600,
+.theme-dark .text-gray-500,
+.theme-dark .text-gray-400,
+.theme-dark .text-gray-300,
+.theme-dark .text-slate-900,
+.theme-dark .text-slate-800,
+.theme-dark .text-slate-700,
+.theme-dark .text-slate-600,
+.theme-dark .text-slate-500,
+.theme-dark .text-slate-400 {
+    color: #cbd5e1 !important;
+}
+
+.theme-dark .font-semibold.text-xl.text-gray-600,
+.theme-dark .font-medium.text-gray-800,
+.theme-dark b.text-gray-800,
+.theme-dark .text-xl.font-medium,
+.theme-dark .text-xl.font-semibold,
+.theme-dark .text-2xl.font-medium,
+.theme-dark .text-2xl.font-semibold,
+.theme-dark .text-3xl {
+    color: #f8fafc !important;
+}
+
+.theme-dark .border,
+.theme-dark [class*="border-gray"],
+.theme-dark [class*="border-slate"] {
+    border-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+.theme-dark .bg-gray-100,
+.theme-dark .bg-gray-200,
+.theme-dark .bg-gray-300 {
+    background-color: rgba(30, 41, 59, 0.92) !important;
+}
+
+.theme-dark .hover\:bg-black:hover,
+.theme-dark .active\:bg-black:active {
+    background-color: #e2e8f0 !important;
+}
+
+.theme-dark .hover\:text-white:hover,
+.theme-dark .active\:text-white:active {
+    color: #0f172a !important;
+}
+
+.theme-dark .bg-amber-100,
+.theme-dark .bg-orange-100 {
+    background-color: rgba(14, 165, 233, 0.14) !important;
+}
+
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+    background-color: rgba(15, 23, 42, 0.72) !important;
+    color: #f8fafc !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+.theme-dark input::placeholder,
+.theme-dark textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+.theme-dark .active\:bg-gray-700:active {
+    background-color: #94a3b8 !important;
+}
+
+.theme-dark .product-card,
+.theme-dark .ui-panel,
+.theme-dark .hero-cta {
+    color: var(--ui-text);
+}
+
+.section-shell {
+    position: relative;
+}
+
+.section-shell::before {
+    content: "";
+    position: absolute;
+    inset: 6% auto auto -4%;
+    width: 120px;
+    height: 120px;
+    border-radius: 9999px;
+    background: var(--ui-accent-soft);
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+.ui-title {
+    color: var(--ui-muted);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+}
+
+.ui-title span {
+    color: var(--ui-text);
+}
+
+.ui-kicker-line {
+    background: linear-gradient(90deg, var(--ui-accent), transparent);
+}
+
+.ui-subtext {
+    color: var(--ui-muted);
+}
+
+.ui-panel {
+    background: var(--ui-panel);
+    border: 1px solid var(--ui-line);
+    box-shadow: var(--ui-shadow);
+    backdrop-filter: blur(14px);
+}
+
+.hero-shell {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--ui-line);
+    border-radius: 32px;
+    background:
+        radial-gradient(circle at top left, var(--ui-hero-glow), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,0.72), rgba(255,255,255,0.3));
+    box-shadow: var(--ui-shadow);
+}
+
+.theme-dark .hero-shell {
+    background:
+        radial-gradient(circle at top left, var(--ui-hero-glow), transparent 30%),
+        linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.78));
+}
+
+.hero-shell::after {
+    content: "";
+    position: absolute;
+    right: -50px;
+    bottom: -60px;
+    width: 220px;
+    height: 220px;
+    border-radius: 9999px;
+    background: var(--ui-accent-soft);
+    filter: blur(18px);
+}
+
+.hero-copy {
+    color: var(--ui-text);
+}
+
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.2rem;
+    border-radius: 9999px;
+    background: var(--ui-panel-strong);
+    border: 1px solid var(--ui-line);
+    box-shadow: var(--ui-shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ui-shadow-hover);
+    border-color: var(--ui-accent);
+}
+
+.product-grid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.product-card {
+    position: relative;
+    display: block;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--ui-panel);
+    border: 1px solid var(--ui-line);
+    box-shadow: var(--ui-shadow);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--ui-shadow-hover);
+    border-color: color-mix(in srgb, var(--ui-accent) 45%, var(--ui-line));
+}
+
+.product-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.08) 100%);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    pointer-events: none;
+}
+
+.theme-dark .product-card::before {
+    background: linear-gradient(180deg, transparent 35%, rgba(2, 6, 23, 0.34) 100%);
+}
+
+.product-card:hover::before {
+    opacity: 1;
+}
+
+.product-media {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.46), transparent);
+}
+
+.product-media img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.product-card:hover .product-media img {
+    transform: scale(1.08);
+}
+
+.product-content {
+    padding: 1rem 1rem 1.1rem;
+}
+
+.product-name {
+    color: var(--ui-text);
+}
+
+.product-price {
+    color: var(--ui-accent);
+}
+
+.product-chip {
+    position: absolute;
+    top: 0.85rem;
+    left: 0.85rem;
+    z-index: 1;
+    padding: 0.35rem 0.7rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.86);
+    color: #7c3f13;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.theme-dark .product-chip {
+    background: rgba(15, 23, 42, 0.82);
+    color: #bae6fd;
+}
+
+.footer-shell {
+    border-top: 1px solid var(--ui-line);
+    margin-top: 6rem;
+    padding-top: 1.5rem;
+}
+
 a.active hr{
     display:block;
 }
@@ -13,5 +349,10 @@ a.active hr{
     a.active{
         background-color: black;
         color: white;
+    }
+
+    .theme-dark a.active{
+        background-color: #e2e8f0;
+        color: #0f172a;
     }
 }

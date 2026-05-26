@@ -1,6 +1,7 @@
 import React from 'react'
 import Title from '../components/Title'
 import { assets } from '../assets/assets'
+import NewsletterBox from '../components/NewsletterBox'
 const About = () => {
   return (
     <div className='text-2xl text-center pt-8 border-t'>
@@ -37,7 +38,7 @@ const About = () => {
 
   
         </div>
-        <NewsLetterBox/>
+        <NewsletterBox/>
     </div>
   
   
