@@ -241,6 +241,9 @@ const Login = () => {
 
       {mode === "reset" && otpSent && (
         <>
+          <p className="text-sm text-green-600">
+            OTP sent to your email. Enter it below to reset your password.
+          </p>
           <input
             onChange={(e) => setOtp(e.target.value)}
             value={otp}
@@ -300,16 +303,23 @@ const Login = () => {
       </button>
 
       {((mode === "otp" && otpSent) || (mode === "reset" && otpSent)) && (
-        <button
-          type="button"
-          onClick={() =>
-            requestOtp(mode === "otp" ? "/api/user/send-login-otp" : "/api/user/send-reset-otp")
-          }
-          disabled={otpCooldown > 0}
-          className={`text-sm ${otpCooldown > 0 ? "text-gray-400 cursor-not-allowed" : "text-black cursor-pointer"}`}
-        >
-          {otpCooldown > 0 ? `Resend OTP in ${otpCooldown}s` : "Resend OTP"}
-        </button>
+        <div className="flex flex-col items-end gap-1">
+          {mode === "reset" && (
+            <p className="text-xs text-gray-500">
+              Didn’t receive it? We can resend a new code after the countdown.
+            </p>
+          )}
+          <button
+            type="button"
+            onClick={() =>
+              requestOtp(mode === "otp" ? "/api/user/send-login-otp" : "/api/user/send-reset-otp")
+            }
+            disabled={otpCooldown > 0}
+            className={`text-sm ${otpCooldown > 0 ? "text-gray-400 cursor-not-allowed" : "text-black cursor-pointer"}`}
+          >
+            {otpCooldown > 0 ? `Resend OTP in ${otpCooldown}s` : "Resend OTP"}
+          </button>
+        </div>
       )}
     </form>
   );
